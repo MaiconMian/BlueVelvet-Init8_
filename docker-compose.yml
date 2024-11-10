@@ -6,7 +6,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - 8090:8090
+      - ${SPRING_PORT}:8090
     depends_on:
       mysqldb:
         condition: service_healthy
@@ -20,7 +20,7 @@ services:
   mysqldb:
     image: mysql:8.0.33
     ports:
-      - 3306:3306
+      - ${DB_PORT}:3306
     environment:
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_ROOT_PASSWORD=${MYSQL_PASSWORD}
@@ -37,7 +37,7 @@ services:
   http-server:
     image: nginx:alpine
     ports:
-      - 8080:80
+      - ${NGINX_PORT}:80
     volumes:
       - ./www:/usr/share/nginx/html:ro
     networks:
