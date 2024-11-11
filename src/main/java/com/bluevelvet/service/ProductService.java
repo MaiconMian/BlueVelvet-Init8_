@@ -27,8 +27,13 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public void deleteProduct(int id) {
-        productRepository.deleteById(id);
+    public boolean deleteProduct(int id) {
+        if (productRepository.existsById(id)) {
+            productRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void createTestProducts() {
