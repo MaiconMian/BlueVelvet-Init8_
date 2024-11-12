@@ -12,7 +12,7 @@ import com.bluevelvet.model.*;
 public class ProductController {
     @Autowired
     private ProductService productService;
-
+    
     @GetMapping("/api/v1/products")
     public List<Product> getAllProducts(){
         productService.createTestProducts(); // Apenas para testes
