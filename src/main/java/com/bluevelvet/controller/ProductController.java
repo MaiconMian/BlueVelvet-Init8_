@@ -12,7 +12,6 @@ import com.bluevelvet.service.*;
 import com.bluevelvet.model.*;
 import com.bluevelvet.DTO.*;
 
-
 @RestController
 @CrossOrigin(origins = "http://localhost:8080")
 public class ProductController {
@@ -23,6 +22,11 @@ public class ProductController {
     private ProductPhotosService productPhotosService;
     @Autowired
     private ProductDetailsService productDetailsService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
+    private BrandService brandService;
+
     @GetMapping("/products")
     public ResponseEntity<ApiResponse<List<Product>>>  getAllProducts(){
         List<Product> products = productService.getAllProducts();
@@ -40,7 +44,7 @@ public class ProductController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Product not found", null));
         }
     }
-    @PostMapping("/product/{id}")
+    @PostMapping("/deleteproduct/{id}")
     public ResponseEntity<ApiResponse<Void>> deleteProductById(@PathVariable int id) {
         boolean deleted = productService.deleteProduct(id);
         if (deleted) {
@@ -52,7 +56,9 @@ public class ProductController {
     }
     @PostMapping("/addproduct")
     public ResponseEntity<ApiResponse<Product>> addProduct(@RequestBody ProductDTO productDTO) {
+
         Product product = new Product();
+
         product.setName(productDTO.getName());
         product.setImage(productDTO.getImage());
         product.setShortDescription(productDTO.getShortDescription());
@@ -66,7 +72,6 @@ public class ProductController {
         product.setCost(productDTO.getCost());
         product.setCreationTime(productDTO.getCreationTime());
         product.setUpdateTime(productDTO.getUpdateTime());
-        product.setCategories(productDTO.getCategories());
 
         productDTO.getDetails().forEach(productDetailsDTO -> {
             ProductDetails productDetails = new ProductDetails();
@@ -85,10 +90,15 @@ public class ProductController {
             productPhotosService.saveProductPhoto(productPhotos);
         });
 
+        productDTO.getCategories().forEach(categoryDTO -> {
+            categoryService.getCategoryById(categoryDTO.getId()).ifPresent(category -> product.getCategories().add(category));
+        });
+
+        brandService.getBrandById(productDTO.getBrand().getId()).ifPresent(brand -> product.setBrand(brand));
 
         productService.saveProduct(product);
-
         return ResponseEntity.ok(new ApiResponse<>("Success", "Product added successfully", product));
+
     }
 
 }
