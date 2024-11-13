@@ -15,6 +15,10 @@ class BlueVelvetApplicationTests {
 
 	@Autowired
 	private ProductRepository productRepository;
+	@Autowired
+	private CategoryRepository categoryRepository;
+	@Autowired
+	private BrandRepository brandRepository;
 
 	@BeforeEach
 	void setUp() {
@@ -49,6 +53,14 @@ class BlueVelvetApplicationTests {
 		product2.setCreationTime(LocalDateTime.now());
 		product2.setUpdateTime(LocalDateTime.now());
 
+		Brand brand = new Brand();
+		brand.setBrandName("RGV");
+
+		Category category = new Category();
+		category.setCategoryName("Discos de Vinil");
+
+		brandRepository.save(brand);
+		categoryRepository.save(category);
 		productRepository.save(product1);
 		productRepository.save(product2);
 
