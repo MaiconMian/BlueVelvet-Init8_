@@ -13,7 +13,6 @@ import com.bluevelvet.model.*;
 import com.bluevelvet.DTO.*;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 public class ProductController {
 
     @Autowired
