@@ -318,11 +318,11 @@
                         name: p.name,
                         brand: p.brand,
                         category: "a",
-                        actions: "actions"  
-                    }));
+                        actions: ` <button type="button" id="btnShow" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                            <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit" class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i></button>`  
+                    })); 
                     //const data = [{id: 1, image:"a", name:"a", brand:"a",category:"a",actions:"a"}]; 
-                    console.log(data);
-                    console.log(typeof(data));
                     new DataTable('#products',{
                     data:data,
                     columns: [
@@ -331,7 +331,7 @@
                             { data: "name" , title:"Name"},
                             { data: "brand" , title:"Brand"},
                             { data: "category" , title:"Category"},
-                            { data: buttons, title: "Actions"}
+                            { data: "actions", title: "Actions"}
                     ]
                 });
                 const divElement = document.querySelector('div.dt-paging');
