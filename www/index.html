@@ -298,18 +298,19 @@
 
         <script>
             //new DataTable('#products');
-            const divElement = document.querySelector('div.dt-paging');
+           
 
-    // Check if the element exists and remove the class if it does
-            if (divElement) {
-                divElement.classList.remove('dt-paging');
-            }
+
+
+
+            
 
             $.ajax({
                 url: 'http://localhost:8090/api/v1/products',
                 type: 'GET',
                 success: function(response) {
                     //listProducts(response.data);
+                    
                     const productsData = response.data;
                     const data = productsData.map(p=>({
                         id: p.id,
@@ -330,35 +331,19 @@
                             { data: "name" , title:"Name"},
                             { data: "brand" , title:"Brand"},
                             { data: "category" , title:"Category"},
-                            { data: "actions", title: "Actions"}
+                            { data: buttons, title: "Actions"}
                     ]
                 });
+                const divElement = document.querySelector('div.dt-paging');
 
+                if (divElement) {
+                    divElement.classList.remove('dt-paging');
+                }
                 },
                 error: function(xhr, status, error) {
                     console.error("Erro na requisição:", status, error);
                 }
             });
-
-            function listProducts(productsData) {
-                
-                
-
-                const data =  [{id:1, image:"A", name:"a", brand:"a",category:"a", actions:"a"}];
-                console.log(data);
-                $('#products').DataTable({
-                    retrieve: true,
-                    data: data,
-                    columns: [
-                        { data: "id" },
-                        { data: "image" },
-                        { data: "name" },
-                        { data: "brand" },
-                        { data: "category" },
-                        { data: "actions"}
-                    ]
-                });
-            }
 
 
             $(document).ready(function(){
