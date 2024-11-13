@@ -1,9 +1,7 @@
 package com.bluevelvet.controller;
 
 import com.bluevelvet.model.ApiResponse;
-import com.bluevelvet.model.Product;
 import com.bluevelvet.service.CategoryService;
-import com.bluevelvet.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +20,23 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/categories")
-    public ResponseEntity<ApiResponse<List<Category>>> getAllProducts(){
+    public ResponseEntity<ApiResponse<Object>> getAllProducts(){
         List<Category> categories = categoryService.getAllCategories();
         if (categories.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Categorys not found", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "No categories registered"));
         }
-        return ResponseEntity.ok(new ApiResponse<>("Success", "Product found", categories));
+        return ResponseEntity.ok(new ApiResponse<>("success", categories));
     }
 
     @GetMapping("/category/{id}")
-    public ResponseEntity<ApiResponse<Category>> getProductById(@PathVariable int id) {
+    public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
         Optional<Category> category = categoryService.getCategoryById(id);
-        if (category.isPresent()) {
-            return ResponseEntity.ok(new ApiResponse<>("Success", "Product found", category.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Product not found", null));
+        if (!category.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "Category not found"));
         }
+        return ResponseEntity.ok(new ApiResponse<>("success", category.get()));
     }
 
 }

@@ -27,34 +27,35 @@ public class ProductController {
     private BrandService brandService;
 
     @GetMapping("/products")
-    public ResponseEntity<ApiResponse<List<Product>>>  getAllProducts(){
+    public ResponseEntity<ApiResponse<Object>> getAllProducts(){
         List<Product> products = productService.getAllProducts();
         if (products.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Product not found", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "No products registered"));
         }
-        return ResponseEntity.ok(new ApiResponse<>("Success", "Product found", products));
+        return ResponseEntity.ok(new ApiResponse<>("success", products));
     }
     @GetMapping("/product/{id}")
-    public ResponseEntity<ApiResponse<Product>> getProductById(@PathVariable int id) {
+    public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
         Optional<Product> product = productService.getProductById(id);
-        if (product.isPresent()) {
-            return ResponseEntity.ok(new ApiResponse<>("Success", "Product found", product.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Product not found", null));
+        if (!product.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "Product not found"));
         }
+        return ResponseEntity.ok(new ApiResponse<>("success", product.get()));
     }
     @PostMapping("/deleteproduct/{id}")
-    public ResponseEntity<ApiResponse<Void>> deleteProductById(@PathVariable int id) {
+    public ResponseEntity<ApiResponse<Object>> deleteProductById(@PathVariable int id) {
         boolean deleted = productService.deleteProduct(id);
         if (deleted) {
-            return ResponseEntity.ok(new ApiResponse<>("Success", "Product deleted successfully", null));
+            return ResponseEntity.ok(new ApiResponse<>("success", "Product deleted successfully"));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
-                    .body(new ApiResponse<>("Error", "Product not found", null));
+                    .body(new ApiResponse<>("error", "Product not found"));
         }
     }
     @PostMapping("/addproduct")
-    public ResponseEntity<ApiResponse<Product>> addProduct(@RequestBody ProductDTO productDTO) {
+    public ResponseEntity<ApiResponse<Object>> addProduct(@RequestBody ProductDTO productDTO) {
 
         Product product = new Product();
 
@@ -90,13 +91,14 @@ public class ProductController {
         });
 
         productDTO.getCategories().forEach(categoryDTO -> {
-            categoryService.getCategoryById(categoryDTO.getId()).ifPresent(category -> product.getCategories().add(category));
+            categoryService.getCategoryById(categoryDTO.getId())
+                    .ifPresent(category -> product.getCategories().add(category));
         });
 
         brandService.getBrandById(productDTO.getBrand().getId()).ifPresent(brand -> product.setBrand(brand));
 
         productService.saveProduct(product);
-        return ResponseEntity.ok(new ApiResponse<>("Success", "Product added successfully", product));
+        return ResponseEntity.ok(new ApiResponse<>("success", "Product added successfully"));
 
     }
 

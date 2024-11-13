@@ -1,9 +1,7 @@
 package com.bluevelvet.controller;
 
 import com.bluevelvet.model.ApiResponse;
-import com.bluevelvet.model.Category;
 import com.bluevelvet.service.BrandService;
-import com.bluevelvet.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +20,23 @@ public class BrandController {
     private BrandService brandService;
 
     @GetMapping("/brands")
-    public ResponseEntity<ApiResponse<List<Brand>>> getAllProducts(){
+    public ResponseEntity<ApiResponse<Object>> getAllProducts(){
         List<Brand> brands = brandService.getAllBrands();
         if (brands.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Brands not found", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "No brands registered"));
         }
-        return ResponseEntity.ok(new ApiResponse<>("Success", "Brand found", brands));
+        return ResponseEntity.ok(new ApiResponse<>("success", brands));
     }
 
     @GetMapping("/brand/{id}")
-    public ResponseEntity<ApiResponse<Brand>> getProductById(@PathVariable int id) {
+    public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
         Optional<Brand> brand = brandService.getBrandById(id);
-        if (brand.isPresent()) {
-            return ResponseEntity.ok(new ApiResponse<>("Success", "Brands found", brand.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Brand not found", null));
+        if (!brand.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "Brand not found"));
         }
+        return ResponseEntity.ok(new ApiResponse<>("success", brand.get()));
     }
 
 }
