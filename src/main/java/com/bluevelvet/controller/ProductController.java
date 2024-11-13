@@ -35,7 +35,7 @@ public class ProductController {
         }
         return ResponseEntity.ok(new ApiResponse<>("success", products));
     }
-    @GetMapping("/product/{id}")
+    @GetMapping("/products/{id}")
     public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
         Optional<Product> product = productService.getProductById(id);
         if (!product.isPresent()) {

@@ -29,7 +29,7 @@ public class CategoryController {
         return ResponseEntity.ok(new ApiResponse<>("success", categories));
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/categories/{id}")
     public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
         Optional<Category> category = categoryService.getCategoryById(id);
         if (!category.isPresent()) {

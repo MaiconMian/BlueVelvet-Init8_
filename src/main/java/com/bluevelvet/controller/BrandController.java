@@ -29,7 +29,7 @@ public class BrandController {
         return ResponseEntity.ok(new ApiResponse<>("success", brands));
     }
 
-    @GetMapping("/brand/{id}")
+    @GetMapping("/brands/{id}")
     public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
         Optional<Brand> brand = brandService.getBrandById(id);
         if (!brand.isPresent()) {
