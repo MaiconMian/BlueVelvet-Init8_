@@ -7,7 +7,6 @@
         <link rel="stylesheet" href="../assets/font-awesome/css/font-awesome.min.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.min.css" />
 
-        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
         <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
         
@@ -15,7 +14,7 @@
     <header>
         
     </header>
-    <body>
+    <body class="d-flex flex-column min-vh-100">
         <div>
             <nav class="navbar navbar-expand-lg navbar-light bg-light nav-justified">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,7 +75,7 @@
         <h2>Product Management</h2>
 
         
-        <table id="example" class="table table-striped table-bordered" style="width:100%;">
+        <table id="products" class="table table-striped table-bordered display" style="width:100%;">
             <div class="panel-heading"><a  href="#novoSlider" role="button" data-toggle="modal" class="pull-right" ><i class="fa fa-plus"></i>  New Product</a></div>
 
             <thead>
@@ -90,288 +89,7 @@
                 </tr>
             </thead>
             <tbody>
-           <tr>
-                <td>1</td>
-                <td><img src="../assets/images/gbv-bee-thousand-cover.jpeg" alt="Guided by Voices - Bee Thousand" style="width: 100; height: 100px;"></td>
-                <td>Guided by Voices - Bee Thousand</td>
-                <td>Matador Records</td>
-                <td>CD</td>
-                <td>
-                    <button type="button"  id="btnShow"class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td><img src="../assets/images//pavment-slanted-and-enchanted-cover.jpeg" alt="Pavement - Slanted and Enchanted" style="width: 100; height: 100px;"></td>
-                <td>Pavement - Slanted and Enchanted</td>
-                <td>Domino Recording Co</td>
-                <td>MP3</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td><img src="../assets/images//neutral-milk-hotel-in-the-aeroplane-over-the-sea-tshirt.jpeg" alt="Neutral Milk Hotel T-Shirt" style="width: 100; height: 100px;"></td>
-                <td>Neutral Milk Hotel T-Shirt</td>
-                <td>Merge Records</td>
-                <td>T-Shirt</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td><img src="../assets/images//indie-101-book.jpg" alt="Indie Rock 101" style="width: 100; height: 100px;"></td>
-                <td>Indie Rock 101</td>
-                <td>Music Books</td>
-                <td>Book</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td><img src="../assets/images//jamc-poster.png" alt="The Jesus and Mary Chain Poster" style="width: 100; height: 100px;"></td>
-                <td>The Jesus and Mary Chain Poster</td>
-                <td>Art & Prints</td>
-                <td>Poster</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td><img src="../assets/images//mbv-loveless-cd.jpeg" alt="My Bloody Valentine - Loveless" style="width: 100; height: 100px;"></td>
-                <td>My Bloody Valentine - Loveless</td>
-                <td>Creation Records</td>
-                <td>CD</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td><img src="../assets/images//yo-la-tengo-you-can-hear-heart-beating-as-one-mp3.jpeg" alt="Yo La Tengo - I Can Hear the Heart Beating as One" style="width: 100; height: 100px;"></td>
-                <td>Yo La Tengo - I Can Hear the Heart Beating as One</td>
-                <td>Matador Records</td>
-                <td>MP3</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td><img src="../assets/images//sonic-youth-washing-machine-tshirt.jpeg" alt="Sonic Youth T-Shirt" style="width: 100; height: 100px;"></td>
-                <td>Sonic Youth T-Shirt</td>
-                <td>Geffen Records</td>
-                <td>T-Shirt</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-                </td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td><img src="../assets/images//our-band-could-be-your-life-book.jpeg" alt="Our Band Could Be Your Life" style="width: 100; height: 100px;"></td>
-                <td>Our Band Could Be Your Life</td>
-                <td>Indie Publishing</td>
-                <td>Book</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td><img src="../assets/images//velvet-underground-poster.jpeg" alt="The Velvet Underground Poster" style="width: 100; height: 100px;"></td>
-                <td>The Velvet Underground Poster</td>
-                <td>Classic Prints</td>
-                <td>Poster</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>1</td>
-                <td><img src="../assets/images/gbv-bee-thousand-cover.jpeg" alt="Guided by Voices - Bee Thousand" style="width: 100; height: 100px;"></td>
-                <td>Guided by Voices - Bee Thousand</td>
-                <td>Matador Records</td>
-                <td>CD</td>
-                <td>
-                    <button type="button"  id="btnShow"class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>2</td>
-                <td><img src="../assets/images//pavment-slanted-and-enchanted-cover.jpeg" alt="Pavement - Slanted and Enchanted" style="width: 100; height: 100px;"></td>
-                <td>Pavement - Slanted and Enchanted</td>
-                <td>Domino Recording Co</td>
-                <td>MP3</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>3</td>
-                <td><img src="../assets/images//neutral-milk-hotel-in-the-aeroplane-over-the-sea-tshirt.jpeg" alt="Neutral Milk Hotel T-Shirt" style="width: 100; height: 100px;"></td>
-                <td>Neutral Milk Hotel T-Shirt</td>
-                <td>Merge Records</td>
-                <td>T-Shirt</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>4</td>
-                <td><img src="../assets/images//indie-101-book.jpg" alt="Indie Rock 101" style="width: 100; height: 100px;"></td>
-                <td>Indie Rock 101</td>
-                <td>Music Books</td>
-                <td>Book</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>5</td>
-                <td><img src="../assets/images//jamc-poster.png" alt="The Jesus and Mary Chain Poster" style="width: 100; height: 100px;"></td>
-                <td>The Jesus and Mary Chain Poster</td>
-                <td>Art & Prints</td>
-                <td>Poster</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>6</td>
-                <td><img src="../assets/images//mbv-loveless-cd.jpeg" alt="My Bloody Valentine - Loveless" style="width: 100; height: 100px;"></td>
-                <td>My Bloody Valentine - Loveless</td>
-                <td>Creation Records</td>
-                <td>CD</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>7</td>
-                <td><img src="../assets/images//yo-la-tengo-you-can-hear-heart-beating-as-one-mp3.jpeg" alt="Yo La Tengo - I Can Hear the Heart Beating as One" style="width: 100; height: 100px;"></td>
-                <td>Yo La Tengo - I Can Hear the Heart Beating as One</td>
-                <td>Matador Records</td>
-                <td>MP3</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>8</td>
-                <td><img src="../assets/images//sonic-youth-washing-machine-tshirt.jpeg" alt="Sonic Youth T-Shirt" style="width: 100; height: 100px;"></td>
-                <td>Sonic Youth T-Shirt</td>
-                <td>Geffen Records</td>
-                <td>T-Shirt</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-                </td>
-            </tr>
-            <tr>
-                <td>9</td>
-                <td><img src="../assets/images//our-band-could-be-your-life-book.jpeg" alt="Our Band Could Be Your Life" style="width: 100; height: 100px;"></td>
-                <td>Our Band Could Be Your Life</td>
-                <td>Indie Publishing</td>
-                <td>Book</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>10</td>
-                <td><img src="../assets/images//velvet-underground-poster.jpeg" alt="The Velvet Underground Poster" style="width: 100; height: 100px;"></td>
-                <td>The Velvet Underground Poster</td>
-                <td>Classic Prints</td>
-                <td>Poster</td>
-                <td>
-                    <a type="button"  id="btnShow"class="btn btn-primary" href=""><i class="fa fa-eye" aria-hidden="true"></i></a>
-                    <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit"class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                    </button>
-                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i>
-                    </button>
-                </td>
-            </tr>
+                
             </tbody>
         </table>
         
@@ -567,14 +285,10 @@
         </div>
         
     </div>
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
 
-
-
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+        <script src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
@@ -583,17 +297,61 @@
 
 
         <script>
+            //new DataTable('#products');
+           
 
-        new DataTable('#example');
-        const divElement = document.querySelector('div.dt-paging');
 
-// Check if the element exists and remove the class if it does
-        if (divElement) {
-            divElement.classList.remove('dt-paging');
-        }
+
+
+            
+
+            $.ajax({
+                url: 'http://localhost:8090/api/v1/products',
+                type: 'GET',
+                success: function(response) {
+                    //listProducts(response.data);
+                    
+                    const productsData = response.data;
+                    const data = productsData.map(p=>({
+                        id: p.id,
+                        image: p.image,
+                        name: p.name,
+                        brand: p.brand,
+                        category: "a",
+                        actions: ` <button type="button" id="btnShow" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                            <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit" class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i></button>`  
+                    })); 
+                    //const data = [{id: 1, image:"a", name:"a", brand:"a",category:"a",actions:"a"}]; 
+                    new DataTable('#products',{
+                    data:data,
+                    columns: [
+                            { data: "id", title: "ID"},
+                            { data: "image" , title:"Image"},
+                            { data: "name" , title:"Name"},
+                            { data: "brand" , title:"Brand"},
+                            { data: "category" , title:"Category"},
+                            { data: "actions", title: "Actions"}
+                    ]
+                });
+                const divElement = document.querySelector('div.dt-paging');
+
+                if (divElement) {
+                    divElement.classList.remove('dt-paging');
+                }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erro na requisição:", status, error);
+                }
+            });
+
+
+            $(document).ready(function(){
+                console.log('document is ready')
+            });
         </script>
     </body>
-    <footer style="background-color:#f8f9fa">
+    <footer style="background-color:#f8f9fa" class="mt-auto">
         <div class="p-2"><h6>BlueVelvet Admin Control Panel - Copyright &copy; BlueVelvet</h6></div>
     </footer>
 </html>
