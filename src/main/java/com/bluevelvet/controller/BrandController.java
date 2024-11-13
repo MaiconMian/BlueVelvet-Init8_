@@ -20,7 +20,7 @@ public class BrandController {
     private BrandService brandService;
 
     @GetMapping("/brands")
-    public ResponseEntity<ApiResponse<Object>> getAllProducts(){
+    public ResponseEntity<ApiResponse<Object>> getAllBrands(){
         List<Brand> brands = brandService.getAllBrands();
         if (brands.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -30,7 +30,7 @@ public class BrandController {
     }
 
     @GetMapping("/brands/{id}")
-    public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
+    public ResponseEntity<ApiResponse<Object>> getBrandById(@PathVariable int id) {
         Optional<Brand> brand = brandService.getBrandById(id);
         if (!brand.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)

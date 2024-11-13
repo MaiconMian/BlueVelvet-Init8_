@@ -20,7 +20,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/categories")
-    public ResponseEntity<ApiResponse<Object>> getAllProducts(){
+    public ResponseEntity<ApiResponse<Object>> getAllCategories(){
         List<Category> categories = categoryService.getAllCategories();
         if (categories.isEmpty()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
@@ -30,7 +30,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}")
-    public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
+    public ResponseEntity<ApiResponse<Object>> getCategoryById(@PathVariable int id) {
         Optional<Category> category = categoryService.getCategoryById(id);
         if (!category.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
