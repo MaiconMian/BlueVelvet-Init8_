@@ -18,7 +18,7 @@ public class Brand {
     private int id;
 
     @Column(name = "brand_name", length=100)
-    private String categoryName;
+    private String brandName;
 
     @Column(name = "brand_ph_content")
     private byte[] image;

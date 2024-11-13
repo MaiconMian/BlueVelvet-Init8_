@@ -10,7 +10,7 @@ import java.io.*;
 @Entity
 @Getter
 @Setter
-@Table (name="bv_")
+@Table (name="bv_product_photos")
 public class ProductPhotos {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

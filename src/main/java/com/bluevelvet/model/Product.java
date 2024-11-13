@@ -1,5 +1,6 @@
 package com.bluevelvet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -63,11 +64,12 @@ public class Product {
     private LocalDateTime updateTime;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductDetails> details;
+    private List<ProductDetails> details = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductPhotos> photos;
+    private List<ProductPhotos> photos = new ArrayList<>();
 
+    @JsonIgnore
     @ManyToMany(mappedBy = "products")
     private Set<Category> categories;
 
