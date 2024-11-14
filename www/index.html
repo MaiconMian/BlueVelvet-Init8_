@@ -122,12 +122,16 @@
 
                     <div class="form-group col-sm-12">
                         <label for="brand">Brand</label>
-                        <input type="text" class="form-control input-lg" id="brand" name="brand" placeholder="Brand" required />
+                        <select id="brands" name="brand" class="form-control">
+                         
+                        </select>                   
                     </div>
 
                     <div class="form-group col-sm-12">
                         <label for="category">Category</label>
-                        <input type="text" class="form-control input-lg" id="category" name="category" placeholder="Category" required />
+                        <select id="categories" name="category" class="form-control">
+                            
+                        </select> 
                     </div>
 
                     <div class="form-group col-sm-12">
@@ -261,14 +265,14 @@
 
                     <div class="form-group col-sm-12">
                         <label for="brand">Brand</label>
-                        <select id="brandsCreate" name="brand" class="form-control">
+                        <select id="brands" required name="brand" class="form-control">
                          
                         </select>                   
                     </div>
 
                     <div class="form-group col-sm-12">
                         <label for="category">Category</label>
-                        <select id="categoriesCreate" name="category" class="form-control">
+                        <select id="categories" required name="category" class="form-control">
                             
                         </select> 
                     </div>
@@ -397,7 +401,7 @@
                 }
                 },
                 error: function(xhr, status, error) {
-                    console.error("Erro na requisição:", status, error);
+                    console.error("Error on requisition:", status, error);
                 }
             });
 
@@ -405,17 +409,18 @@
                 url: 'http://localhost:8090/api/v1/brands',
                 type: 'GET',
                 success: function(response) {
-                    //console.log(response.data);
                     const data = response.data;
-                    let brandField = document.querySelector('#brandsCreate');
-                    console.log(data);
+                    let brandsFields = document.querySelectorAll('#brands');
+
                     Object.keys(data).forEach((key)=>{
                         
-                        brandField.innerHTML += `<option value="${data[key].id}">${data[key].brandName}</option>`;
+                        brandsFields[0].innerHTML += `<option value="${data[key].id}">${data[key].brandName}</option>`;
+                        brandsFields[1].innerHTML += `<option value="${data[key].id}">${data[key].brandName}</option>`;
+
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.error("Erro na requisição:", status, error);
+                    console.error("Error on requisition:", status, error);
                 }
             });
             $.ajax({
@@ -424,16 +429,55 @@
                 success: function(response) {
                     //console.log(response.data);
                     const data = response.data;
-                    let brandField = document.querySelector('#categoriesCreate');
-                    console.log(data);
+                    let categoriesFields = document.querySelectorAll('#categories');
                     Object.keys(data).forEach((key)=>{
                         
-                        brandField.innerHTML += `<option value="${data[key].id}">${data[key].categoryName}</option>`;
+                        categoriesFields[0].innerHTML += `<option value="${data[key].id}">${data[key].categoryName}</option>`;
+                        categoriesFields[1].innerHTML += `<option value="${data[key].id}">${data[key].categoryName}</option>`;
+
                     });
                 },
                 error: function(xhr, status, error) {
-                    console.error("Erro na requisição:", status, error);
+                    console.error("Error on requisition:", status, error);
                 }
+            });
+            document.querySelector("#formCreateProduct").addEventListener('submit', (e)=>{
+                e.preventDefault();
+                console.log('oi');
+
+                var formData = {
+                    name: $("#name").val(),
+                    shortDescription: $("#shortDescription").val(),
+                    fullDescription: $("#fullDescription").val(),
+                    brand: $("#brands").val(),
+                    category: $("#categories").val(),
+                    mainImage: $("#mainImage")[0].files[0], // file input
+                    featuredImages: $("#featuredImages")[0].files, // multiple file input
+                    listPrice: $("#listPrice").val(),
+                    discountPercent: $("#discountPercent").val(),
+                    enabled: $("#enabled").is(":checked"),
+                    inStock: $("#inStock").is(":checked"),
+                    length: $("#length").val(),
+                    width: $("#width").val(),
+                    height: $("#height").val(),
+                    weight: $("#weight").val(),
+                    cost: $("#cost").val(),
+                    detailName: $("input[name='detailName']").map(function() { return $(this).val(); }).get(),
+                    detailValue: $("input[name='detailValue']").map(function() { return $(this).val(); }).get()
+                };
+
+
+                $.ajax({
+                    url: 'http:localhost:8090/api/v1/addproduct',
+                    type: 'POST',
+                    data: formData,
+                    success: function(response){
+                        console.log(response);
+                    },
+                    error: function(xhr, status, error) {
+                        console.error("Error on requisition:", status, error);
+                    } 
+                });
             });
         </script>
     </body>
