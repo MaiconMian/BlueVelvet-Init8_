@@ -31,8 +31,8 @@ class BlueVelvetApplicationTests {
 		product1.setDiscount(5.0f);
 		product1.setStatus(true);
 		product1.setHasStock(true);
-		product1.setWidht(10.0f);
-		product1.setLenght(20.0f);
+		product1.setWidth(10.0f);
+		product1.setLength(20.0f);
 		product1.setHeight(30.0f);
 		product1.setCost(100.0f);
 		product1.setCreationTime(LocalDateTime.now());
@@ -46,8 +46,8 @@ class BlueVelvetApplicationTests {
 		product2.setDiscount(10.0f);
 		product2.setStatus(true);
 		product2.setHasStock(true);
-		product2.setWidht(15.0f);
-		product2.setLenght(25.0f);
+		product2.setWidth(15.0f);
+		product2.setLength(25.0f);
 		product2.setHeight(35.0f);
 		product2.setCost(150.0f);
 		product2.setCreationTime(LocalDateTime.now());
