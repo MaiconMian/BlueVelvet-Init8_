@@ -5,6 +5,10 @@ import com.bluevelvet.model.Category;
 import com.bluevelvet.model.ProductDetails;
 import com.bluevelvet.model.ProductPhotos;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import lombok.*;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,42 +18,55 @@ import java.util.Set;
 @Setter
 public class ProductDTO {
 
-    private Brand brand;
+    @NotNull(message = "Brand ID is required")
+    private Integer brand;
 
+    @NotEmpty(message = "Product name is required")
     private String name;
 
+    @NotEmpty(message = "Product image is required")
     private byte[] image;
 
+    @NotEmpty(message = "Product short description is required")
     private String shortDescription;
 
     private String longDescription;
 
-    private float price;
+    @Positive(message = "Product price must be positive")
+    @NotNull(message = "Product price is required")
+    private Float price;
 
-    private float discount;
+    @Positive(message = "Product discount must be positive")
+    @NotNull(message = "Product discount is required")
+    private Float discount;
 
+    @NotNull(message = "Product status is required")
     private Boolean status;
 
+    @NotNull(message = "Product stock status is required")
     private Boolean hasStock;
 
-    private float widht;
+    @Positive(message = "Product width must be positive")
+    @NotNull(message = "Product width is required")
+    private Float width;
 
-    private float lenght;
+    @Positive(message = "Product length must be positive")
+    @NotNull(message = "Product length is required")
+    private Float length;
 
-    private float height;
+    @Positive(message = "Product height must be positive")
+    @NotNull(message = "Product height is required")
+    private Float height;
 
-    private float cost;
-
-    private LocalDateTime creationTime;
-
-    private LocalDateTime updateTime;
+    @Positive(message = "Product cost must be positive")
+    @NotNull(message = "Product cost is required")
+    private Float cost;
 
     private List<ProductDetailsDTO> details;
 
     private List<ProductPhotosDTO> photos;
 
-    private Set<Category> categories;
-
+    private Set<Integer> categories;
 }
 
 

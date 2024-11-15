@@ -8,8 +8,6 @@ import lombok.*;
 @Setter
 public class ProductDetailsDTO {
 
-    private Product product;
-
     private String detailName;
 
     private String detailValue;

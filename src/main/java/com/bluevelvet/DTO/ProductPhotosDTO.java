@@ -11,7 +11,5 @@ public class ProductPhotosDTO {
 
     private int id;
 
-    private Product product;
-
     private byte[] image;
 }
