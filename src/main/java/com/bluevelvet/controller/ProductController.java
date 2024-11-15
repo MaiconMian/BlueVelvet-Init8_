@@ -39,11 +39,11 @@ public class ProductController {
         return ResponseEntity.ok(new ApiResponse<>("success", product.get()));
     }
 
-    @PostMapping("/deleteproduct/{id}")
+    @DeleteMapping("/products/{id}")
     public ResponseEntity<ApiResponse<Object>> deleteProductById(@PathVariable int id) {
         boolean deleted = productService.deleteProduct(id);
         if (deleted) {
-            return ResponseEntity.ok(new ApiResponse<>("success", "Product deleted successfully"));
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND)
                     .body(new ApiResponse<>("error", "Product not found"));
@@ -52,8 +52,9 @@ public class ProductController {
 
     @PostMapping("/products")
     public ResponseEntity<ApiResponse<String>> addProduct(@Valid @RequestBody ProductDTO productDTO) {
-        productService.saveProductWithDetails(productDTO);
-        return ResponseEntity.ok(new ApiResponse<>("success", "Product added successfully"));
+        Product createdProduct = productService.saveProductWithDetails(productDTO);
+        return ResponseEntity.ok(new ApiResponse<>("success", "Product with ID " +
+                createdProduct.getId() + " added successfully"));
     }
 
 }

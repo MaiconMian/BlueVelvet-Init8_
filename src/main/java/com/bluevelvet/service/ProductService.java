@@ -61,7 +61,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void saveProductWithDetails(ProductDTO productDTO) {
+    public Product saveProductWithDetails(ProductDTO productDTO) {
         Product product = productMapper.toProduct(productDTO);
 
         saveProduct(product);
@@ -96,5 +96,6 @@ public class ProductService {
 
         product.getDetails().forEach(productDetailsService::saveProductDetails);
         product.getPhotos().forEach(productPhotosService::saveProductPhoto);
+        return product;
     }
 }
