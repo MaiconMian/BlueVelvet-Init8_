@@ -15,10 +15,10 @@ import java.io.*;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @ManyToOne
-    @JoinColumn(name = "id_brand",  insertable = false, updatable = false)
+    @JoinColumn(name = "id_brand")
     private Brand brand;
 
     @Column(name = "product_name", length = 100)
@@ -34,10 +34,10 @@ public class Product {
     private String longDescription;
 
     @Column(name = "product_price")
-    private float price;
+    private Float price;
 
     @Column(name = "product_discount")
-    private float discount;
+    private Float discount;
 
     @Column(name = "products_status", columnDefinition = "TINYINT")
     private Boolean status;
@@ -45,17 +45,17 @@ public class Product {
     @Column(name = "products_has_stock", columnDefinition = "TINYINT")
     private Boolean hasStock;
 
-    @Column(name = "product_widht")
-    private float widht;
+    @Column(name = "product_width")
+    private Float width;
 
-    @Column(name = "product_lenght")
-    private float lenght;
+    @Column(name = "product_length")
+    private Float length;
 
     @Column(name = "product_height")
-    private float height;
+    private Float height;
 
     @Column(name = "product_cost")
-    private float cost;
+    private Float cost;
 
     @Column(name = "product_creation_time")
     private LocalDateTime creationTime;
@@ -69,8 +69,7 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductPhotos> photos = new ArrayList<>();
 
-    @JsonIgnore
     @ManyToMany(mappedBy = "products")
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
 
 }

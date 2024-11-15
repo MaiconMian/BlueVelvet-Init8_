@@ -1,5 +1,6 @@
 package com.bluevelvet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -31,6 +32,7 @@ public class Category {
     private Set<Brand> brands;
 
     @ManyToMany
+    @JsonIgnore
     @JoinTable(
             name = "bv_product_category",
             joinColumns = @JoinColumn(name = "category_id"),

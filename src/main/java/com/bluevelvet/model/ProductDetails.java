@@ -1,5 +1,6 @@
 package com.bluevelvet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -13,11 +14,13 @@ import java.io.*;
 @Table (name = "bv_product_detail")
 public class ProductDetails {
     @Id
+    @JsonIgnore
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "id_product", insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name = "id_product")
     private Product product;
 
     @Column(name = "detail_name", length = 100)

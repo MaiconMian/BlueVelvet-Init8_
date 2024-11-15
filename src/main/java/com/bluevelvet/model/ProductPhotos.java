@@ -1,5 +1,6 @@
 package com.bluevelvet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import java.time.LocalDateTime;
@@ -17,7 +18,8 @@ public class ProductPhotos {
     private int id;
 
     @ManyToOne
-    @JoinColumn(name = "id_product", insertable = false, updatable = false)
+    @JsonIgnore
+    @JoinColumn(name = "id_product")
     private Product product;
 
     @Column(name = "product_ph_content")
