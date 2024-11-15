@@ -3,9 +3,11 @@ package com.bluevelvet;
 import com.bluevelvet.model.Brand;
 import com.bluevelvet.model.Category;
 import com.bluevelvet.model.Product;
+import com.bluevelvet.model.Role;
 import com.bluevelvet.repository.BrandRepository;
 import com.bluevelvet.repository.CategoryRepository;
 import com.bluevelvet.repository.ProductRepository;
+import com.bluevelvet.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -21,6 +23,8 @@ public class RunTestsOnStartup implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private BrandRepository brandRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -59,6 +63,11 @@ public class RunTestsOnStartup implements CommandLineRunner {
 
         Category category = new Category();
         category.setCategoryName("Discos de Vinil");
+
+        Role role = new Role();
+        role.setName("ADMIN");
+        role.setDescription("A role for adminitrator in BV");
+        roleRepository.save(role);
 
         brandRepository.save(brand);
 
