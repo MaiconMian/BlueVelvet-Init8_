@@ -5,6 +5,7 @@ import com.bluevelvet.service.BrandService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class BrandController {
     private BrandService brandService;
 
     @GetMapping("/brands")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<Object>> getAllBrands(){
         List<Brand> brands = brandService.getAllBrands();
         if (brands.isEmpty()) {
@@ -30,6 +32,7 @@ public class BrandController {
     }
 
     @GetMapping("/brands/{id}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<Object>> getBrandById(@PathVariable int id) {
         Optional<Brand> brand = brandService.getBrandById(id);
         if (!brand.isPresent()) {

@@ -2,6 +2,7 @@ package com.bluevelvet.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.HttpStatus;
@@ -20,6 +21,7 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<Object>> getAllProducts(){
         List<Product> products = productService.getAllProducts();
         if (products.isEmpty()) {
@@ -30,6 +32,7 @@ public class ProductController {
     }
 
     @GetMapping("/products/{id}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<Object>> getProductById(@PathVariable int id) {
         Optional<Product> product = productService.getProductById(id);
         if (!product.isPresent()) {
@@ -40,6 +43,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/products/{id}")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public ResponseEntity<ApiResponse<Object>> deleteProductById(@PathVariable int id) {
         boolean deleted = productService.deleteProduct(id);
         if (deleted) {
@@ -51,6 +55,7 @@ public class ProductController {
     }
 
     @PostMapping("/products")
+    @PreAuthorize("hasAnyRole('ADMIN', 'EDITOR')")
     public ResponseEntity<ApiResponse<String>> addProduct(@Valid @RequestBody ProductDTO productDTO) {
         Product createdProduct = productService.saveProductWithDetails(productDTO);
         return ResponseEntity.ok(new ApiResponse<>("success", "Product with ID " +
