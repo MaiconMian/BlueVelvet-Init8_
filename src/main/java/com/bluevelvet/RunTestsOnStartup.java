@@ -1,17 +1,16 @@
 package com.bluevelvet;
 
 import com.bluevelvet.model.*;
-import com.bluevelvet.repository.BrandRepository;
-import com.bluevelvet.repository.CategoryRepository;
-import com.bluevelvet.repository.ProductRepository;
-import com.bluevelvet.repository.RoleRepository;
+import com.bluevelvet.repository.*;
+import com.bluevelvet.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-//@Component
+@Component
 public class RunTestsOnStartup implements CommandLineRunner {
 
     @Autowired
@@ -22,8 +21,12 @@ public class RunTestsOnStartup implements CommandLineRunner {
     private BrandRepository brandRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UserRepository userRepository;
+    @Autowired
+    private RoleService roleService;
 
-//    @Override
+    @Override
     public void run(String... args) throws Exception {
         Product product1 = new Product();
         product1.setName("Produto de Teste 1");
@@ -57,11 +60,15 @@ public class RunTestsOnStartup implements CommandLineRunner {
 
         Brand brand = new Brand();
         brand.setBrandName("RGV");
-        brandRepository.save(brand);
+        try {
+            brandRepository.save(brand);
+        } catch (Exception e) {}
 
         Category category = new Category();
         category.setCategoryName("Discos de Vinil");
-        categoryRepository.save(category);
+        try {
+            categoryRepository.save(category);
+        } catch (Exception e) {}
 
         Role role1 = new Role();
         role1.setName("ADMIN");
@@ -75,18 +82,30 @@ public class RunTestsOnStartup implements CommandLineRunner {
         role3.setName("USER");
         role3.setDescription("A role for user in BV");
 
-        roleRepository.save(role1);
-        roleRepository.save(role2);
-        roleRepository.save(role3);
+        try {
+            roleRepository.save(role1);
+            roleRepository.save(role2);
+            roleRepository.save(role3);
+        } catch (Exception e) {}
 
         product1.setBrand(brand);
         product2.setBrand(brand);
-        productRepository.save(product1);
-        productRepository.save(product2);
+        try {
+            productRepository.save(product1);
+            productRepository.save(product2);
+        } catch (Exception e) {}
 
-//        User user = new User();
-//        user.setName("myuser");
-//        user.setEmail("test@gmail.com");
-//        user.setPassword();
+        User user = new User();
+        user.setName("my");
+        user.setLastName("user");
+        user.setEmail("test@gmail.com");
+        user.setPassword(new BCryptPasswordEncoder().encode("mypass"));
+        user.getRoles().add(role1);
+        user.setStatus(true);
+        try {
+            userRepository.save(user);
+            role1.getUsers().add(user);
+            roleService.saveRole(role1);
+        } catch (Exception e) {}
     }
 }
