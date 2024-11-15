@@ -1,13 +1,10 @@
 package com.bluevelvet.controller;
 
 import com.bluevelvet.model.ApiResponse;
-import com.bluevelvet.model.Product;
 import com.bluevelvet.service.CategoryService;
-import com.bluevelvet.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,29 +14,29 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 public class CategoryController {
 
     @Autowired
     private CategoryService categoryService;
 
     @GetMapping("/categories")
-    public ResponseEntity<ApiResponse<List<Category>>> getAllProducts(){
+    public ResponseEntity<ApiResponse<Object>> getAllCategories(){
         List<Category> categories = categoryService.getAllCategories();
         if (categories.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Categorys not found", null));
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "No categories registered"));
         }
-        return ResponseEntity.ok(new ApiResponse<>("Success", "Product found", categories));
+        return ResponseEntity.ok(new ApiResponse<>("success", categories));
     }
 
-    @GetMapping("/category/{id}")
-    public ResponseEntity<ApiResponse<Category>> getProductById(@PathVariable int id) {
+    @GetMapping("/categories/{id}")
+    public ResponseEntity<ApiResponse<Object>> getCategoryById(@PathVariable int id) {
         Optional<Category> category = categoryService.getCategoryById(id);
-        if (category.isPresent()) {
-            return ResponseEntity.ok(new ApiResponse<>("Success", "Product found", category.get()));
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse<>("Error", "Product not found", null));
+        if (!category.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                    .body(new ApiResponse<>("error", "Category not found"));
         }
+        return ResponseEntity.ok(new ApiResponse<>("success", category.get()));
     }
 
 }
