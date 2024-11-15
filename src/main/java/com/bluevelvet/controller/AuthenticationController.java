@@ -1,17 +1,17 @@
 package com.bluevelvet.controller;
 
+import com.bluevelvet.DTO.AdminRegisterDTO;
+import com.bluevelvet.DTO.LoginDTO;
 import com.bluevelvet.DTO.LoginResponseDTO;
-import com.bluevelvet.DTO.RegisterDTO;
+import com.bluevelvet.DTO.UserRegisterDTO;
 import com.bluevelvet.model.Role;
-import com.bluevelvet.repository.RoleRepository;
 import com.bluevelvet.repository.UserRepository;
 import com.bluevelvet.security.TokenService;
 import com.bluevelvet.service.RoleService;
 import jakarta.validation.Valid;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -19,11 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import com.bluevelvet.DTO.AuthenticationDTO;
-import com.bluevelvet.DTO.LoginResponseDTO;
 import com.bluevelvet.model.User;
 
-import javax.management.remote.JMXAuthenticator;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,24 +28,24 @@ import java.util.List;
 @RequestMapping("auth")
 public class AuthenticationController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthenticationController.class);
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
     @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleService roleService;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
     @PostMapping("/login")
-    public ResponseEntity login (@RequestBody @Valid AuthenticationDTO authenticationDTO) {
+    @PreAuthorize("permitAll()")
+    public ResponseEntity login(@Valid @RequestBody LoginDTO loginDTO) {
 
-        var usernamepassword = new UsernamePasswordAuthenticationToken(authenticationDTO.email(), authenticationDTO.password());
+        var userPassword = new UsernamePasswordAuthenticationToken(loginDTO.email(),
+                loginDTO.password());
 
         try {
-            var auth = this.authenticationManager.authenticate(usernamepassword);
+            var auth = this.authenticationManager.authenticate(userPassword);
 
             var token = tokenService.generateToken((User) auth.getPrincipal());
 
@@ -59,40 +56,60 @@ public class AuthenticationController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity register (@RequestBody @Valid RegisterDTO registerDTO) {
-        logger.debug("Registering new user with email: {}", registerDTO.email());
+    @PostMapping("/admin/register")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity adminRegister(@Valid @RequestBody AdminRegisterDTO adminRegisterDTO) {
 
-        if(this.userRepository.findByEmail(registerDTO.email()) != null) {
-            logger.warn("User with email {} already exists", registerDTO.email());
+        if(this.userRepository.findByEmail(adminRegisterDTO.email()) != null) {
             return ResponseEntity.badRequest().build();
         }
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(registerDTO.password());
-        logger.debug("Password encrypted for user {}", registerDTO.email());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(adminRegisterDTO.password());
 
-        User newuser = new User();
-        newuser.setName(registerDTO.name());
-        newuser.setLastName(registerDTO.lastName());
-        newuser.setEmail(registerDTO.email());
-        newuser.setPassword(encryptedPassword);
-        newuser.setStatus(true);
+        User newAdminUser = new User();
+        newAdminUser.setName(adminRegisterDTO.name());
+        newAdminUser.setLastName(adminRegisterDTO.lastName());
+        newAdminUser.setEmail(adminRegisterDTO.email());
+        newAdminUser.setPassword(encryptedPassword);
+        newAdminUser.setStatus(true);
 
-        List<Role> roles = new ArrayList<>();
+        this.userRepository.save(newAdminUser);
 
-        logger.debug("Saving user {}", newuser.getEmail());
-        this.userRepository.save(newuser);
-
-        registerDTO.Roles().forEach(roleId -> {
+        adminRegisterDTO.Roles().forEach(roleId -> {
             roleService.getRoleById(roleId).ifPresent(role -> {
-                newuser.getRoles().add(role);
-                role.getUsers().add(newuser);
+                newAdminUser.getRoles().add(role);
+                role.getUsers().add(newAdminUser);
                 roleService.saveRole(role);
-                logger.debug("Assigned role {} to user {}", role.getName(), newuser.getEmail());
             });
         });
 
-        logger.info("User {} registered successfully", newuser.getEmail());
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/user/register")
+    @PreAuthorize("permitAll()")
+    public ResponseEntity userRegister(@Valid @RequestBody UserRegisterDTO userRegisterDTO) {
+
+        if(this.userRepository.findByEmail(userRegisterDTO.email()) != null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        String encryptedPassword = new BCryptPasswordEncoder().encode(userRegisterDTO.password());
+
+        User newNormalUser = new User();
+        newNormalUser.setName(userRegisterDTO.name());
+        newNormalUser.setLastName(userRegisterDTO.lastName());
+        newNormalUser.setEmail(userRegisterDTO.email());
+        newNormalUser.setPassword(encryptedPassword);
+        newNormalUser.setStatus(true);
+
+        this.userRepository.save(newNormalUser);
+
+        roleService.getRoleById(3).ifPresent(role -> {
+            newNormalUser.getRoles().add(role);
+            role.getUsers().add(newNormalUser);
+            roleService.saveRole(role);
+        });
 
         return ResponseEntity.ok().build();
     }
