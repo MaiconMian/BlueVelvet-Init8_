@@ -5,6 +5,7 @@ import com.bluevelvet.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @GetMapping("/categories")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<Object>> getAllCategories(){
         List<Category> categories = categoryService.getAllCategories();
         if (categories.isEmpty()) {
@@ -30,6 +32,7 @@ public class CategoryController {
     }
 
     @GetMapping("/categories/{id}")
+    @PreAuthorize("permitAll()")
     public ResponseEntity<ApiResponse<Object>> getCategoryById(@PathVariable int id) {
         Optional<Category> category = categoryService.getCategoryById(id);
         if (!category.isPresent()) {

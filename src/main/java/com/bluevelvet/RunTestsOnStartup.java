@@ -1,9 +1,6 @@
 package com.bluevelvet;
 
-import com.bluevelvet.model.Brand;
-import com.bluevelvet.model.Category;
-import com.bluevelvet.model.Product;
-import com.bluevelvet.model.Role;
+import com.bluevelvet.model.*;
 import com.bluevelvet.repository.BrandRepository;
 import com.bluevelvet.repository.CategoryRepository;
 import com.bluevelvet.repository.ProductRepository;
@@ -14,7 +11,7 @@ import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 
-@Component
+//@Component
 public class RunTestsOnStartup implements CommandLineRunner {
 
     @Autowired
@@ -26,7 +23,7 @@ public class RunTestsOnStartup implements CommandLineRunner {
     @Autowired
     private RoleRepository roleRepository;
 
-    @Override
+//    @Override
     public void run(String... args) throws Exception {
         Product product1 = new Product();
         product1.setName("Produto de Teste 1");
@@ -60,21 +57,36 @@ public class RunTestsOnStartup implements CommandLineRunner {
 
         Brand brand = new Brand();
         brand.setBrandName("RGV");
+        brandRepository.save(brand);
 
         Category category = new Category();
         category.setCategoryName("Discos de Vinil");
+        categoryRepository.save(category);
 
-        Role role = new Role();
-        role.setName("ADMIN");
-        role.setDescription("A role for adminitrator in BV");
-        roleRepository.save(role);
+        Role role1 = new Role();
+        role1.setName("ADMIN");
+        role1.setDescription("A role for administrator in BV");
 
-        brandRepository.save(brand);
+        Role role2 = new Role();
+        role2.setName("EDITOR");
+        role2.setDescription("A role for editor in BV");
+
+        Role role3 = new Role();
+        role3.setName("USER");
+        role3.setDescription("A role for user in BV");
+
+        roleRepository.save(role1);
+        roleRepository.save(role2);
+        roleRepository.save(role3);
 
         product1.setBrand(brand);
         product2.setBrand(brand);
-        categoryRepository.save(category);
         productRepository.save(product1);
         productRepository.save(product2);
+
+//        User user = new User();
+//        user.setName("myuser");
+//        user.setEmail("test@gmail.com");
+//        user.setPassword();
     }
 }
