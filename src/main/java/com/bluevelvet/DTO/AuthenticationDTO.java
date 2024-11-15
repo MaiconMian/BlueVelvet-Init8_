@@ -1,2 +1,4 @@
-package com.bluevelvet.DTO;public class AuthenticationDTO {
+package com.bluevelvet.DTO;
+
+public record AuthenticationDTO (String email, String password){
 }
