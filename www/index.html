@@ -204,6 +204,34 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="modalDetails" tabindex="-1" role="dialog" aria-labelledby="modalDetailsLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalDetailsLabel">Product Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>ID:</strong> <span id="detailId"></span></p>
+                    <p><strong>Name:</strong> <span id="detailName"></span></p>
+                    <p><strong>Brand:</strong> <span id="detailBrand"></span></p>
+                    <p><strong>Category:</strong> <span id="detailCategory"></span></p>
+                    <p><strong>Description:</strong> <span id="detailDescription"></span></p>
+                    <img id="detailImage" src="" alt="Product Image" style="max-width: 100%; height: auto;" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+
     <div class="modal fade" id="modalDelete">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -268,8 +296,9 @@
                                 <textarea  class="form-control input-lg" autofocus="" name="descricao"></textarea>
                             </div>
 
-                        </div>
 
+                        </div>
+                        
 
                         <div class="modal-footer">
                             <div>
@@ -282,6 +311,9 @@
                 </div>
 
             </div>
+
+                
+
         </div>
         
     </div>
@@ -318,9 +350,10 @@
                         name: p.name,
                         brand: p.brand,
                         category: "a",
-                        actions: ` <button type="button" id="btnShow" class="btn btn-primary"><i class="fa fa-eye" aria-hidden="true"></i></button>
-                            <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit" class="btn btn-success" data-id=""><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
-                            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id=""><i class="fa fa-trash" aria-hidden="true"></i></button>`  
+                        actions: `<button type="button" id="btnShow" class="btn btn-primary" data-id="${p.id}" data-toggle="modal" data-target="#modalDetails"><i class="fa fa-eye" aria-hidden="true"></i></button>
+                        <button type="button" data-toggle="modal" data-target="#modalEdit" id="btnEdit" class="btn btn-success" data-id="${p.id}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button>
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#modalDelete" id="btnDelete" data-id="${p.id}"><i class="fa fa-trash" aria-hidden="true"></i></button>`
+ 
                     })); 
                     //const data = [{id: 1, image:"a", name:"a", brand:"a",category:"a",actions:"a"}]; 
                     new DataTable('#products',{
@@ -344,6 +377,33 @@
                     console.error("Erro na requisição:", status, error);
                 }
             });
+            $(document).on('click', '#btnShow', function() {
+    const productId = $(this).data('id');
+
+            $.ajax({
+                url: `http://localhost:8090/api/v1/products/${productId}`,
+                type: 'GET',
+                success: function(response) {
+                    // Verifica se o status é "success" antes de acessar os dados
+                    if (response.status === "success" && response.data) {
+                        $('#detailId').text(response.data.id);
+                        $('#detailName').text(response.data.name);
+                        $('#detailBrand').text(response.data.brand.brandName); // Corrigido para acessar brandName dentro de brand
+                        $('#detailCategory').text(response.data.brand.category.join(', ')); // Exibe categorias se houver
+                        $('#detailDescription').text(response.data.longDescription); // Ajustado para usar longDescription
+                        $('#detailImage').attr('src', response.data.image || 'default-image.jpg'); // Usa uma imagem padrão se for null
+                    } else {
+                        alert('Produto não encontrado ou erro na resposta.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Erro ao buscar detalhes do produto:", status, error);
+                    alert('Erro ao carregar os detalhes do produto.');
+                }
+            });
+        });
+
+
 
 
             $(document).ready(function(){
